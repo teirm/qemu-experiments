@@ -13,7 +13,7 @@ function f_error {
 }
 
 function f_usage {
-    echo "Usage: bash alpine-driver.sh [boot|create <port>|clean] "
+    echo "Usage: bash alpine-driver.sh [boot <port>|create|clean] "
     exit 1;
 }
 
@@ -49,8 +49,6 @@ function f_create {
         f_error 'qemu-img create' $?
     fi
 
-    # Get ISO name
-    
 
     # Not catching the error here since this command starts an Xwindow
     qemu-system-x86_64 -cdrom *.iso -hda alpine.qcow -boot d -net nic -net user -m 256 -localtime
@@ -77,7 +75,7 @@ function f_clean {
 }
 
 
-if [[ $OPTION == "" || $PORT == "" ]]; then
+if [[ $OPTION == "" ]]; then
     echo "No Option given"
     f_usage
 fi
